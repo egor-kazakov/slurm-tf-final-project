@@ -47,6 +47,11 @@ export YC_SUBNET_ID="<идентификатор_подсети>"
 cd packer
 ```
 
+Проинициализируйте **Packer**:
+```
+packer init config.pkr.hcl
+```
+
 Проверьте корректность конфигурационного файла образа с помощью команды:
 ```
 packer validate nginx.pkr.hcl
