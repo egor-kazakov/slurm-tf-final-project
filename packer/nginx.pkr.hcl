@@ -40,13 +40,18 @@ source "yandex" "nginx" {
 build {
   sources = ["source.yandex.nginx"]
 
+  provisioner "file" {
+    source      = "ansible" 
+    destination = "/tmp/ansible"
+  }
+
   provisioner "shell" {
     inline = [
       # Install Ansible
       "sudo yum install ansible",
 
       # Run playbook
-      "ansible-playbook ansible/playbook.yml",
+      "ansible-playbook /tmp/ansible/playbook.yml",
 
       # Test - Check versions for installed components
       "echo '=== Tests Start ==='",
