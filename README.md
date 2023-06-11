@@ -16,6 +16,8 @@
 
 Инструкция по установке [**Packer**](https://cloud.yandex.ru/docs/tutorials/infrastructure-management/packer-quickstart#install-packer)
 
+> *Зеркала на территории РФ недоступны (11.06.2023). Используйте VPN*
+
 ## Настройка доступа к облаку
 
 **Примчание:** в данном проекте не храняться токены. Все авторизационные данные необходимо объявить в *Environment Variables*.
@@ -34,6 +36,8 @@ export YC_ZONE="<зона_доступности>"
 export YC_SUBNET_ID="<идентификатор_подсети>"
 
 ```
+
+> Параметры **YC_ZONE** и **YC_SUBNET_ID** можно посмотреть командой: `yc vpc subnet list`
 
 ## Подготовка образа (Packer)
 
