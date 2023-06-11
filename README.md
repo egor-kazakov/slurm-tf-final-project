@@ -34,10 +34,9 @@ export YC_CLOUD_ID=$(yc config get cloud-id)
 export YC_FOLDER_ID=$(yc config get folder-id)
 export YC_ZONE="ru-central1-a"
 export YC_SUBNET_ID="$(yc vpc subnet show default-ru-central1-a | head -1 | awk '{ print $2 })'"
-
 ```
 
-> Параметры **YC_ZONE** и **YC_SUBNET_ID** можно посмотреть командой: `yc vpc subnet list`.
+> При необходимости параметры **YC_ZONE** и **YC_SUBNET_ID** можно посмотреть командой: `yc vpc subnet list`.
 > Запишите идентификатор подсети (столбец **ID**), в которой будет размещаться вспомогательная ВМ, на основе которой создается образ, а также соответствующую зону доступности (столбец **ZONE**). Эти параметры потребуются для **Packer**.
 
 ## Подготовка образа (Packer)
@@ -68,3 +67,20 @@ packer build -var 'image_tag=1' .
 ```
 
 После завершения сборки будет выведено сообщение о том, что образ успешно создан.
+
+## Применение конфигурации
+
+Перейдите в директорию **Terraform**:
+```
+cd terraform
+```
+
+Проинициализируйте проект **Terraform**:
+```
+terraform init
+```
+
+Примените конфигурацию:
+```
+terraform apply
+```
