@@ -49,12 +49,12 @@ cd packer
 
 Проинициализируйте **Packer**:
 ```
-packer init config.pkr.hcl
+packer init .
 ```
 
 Проверьте корректность конфигурационного файла образа с помощью команды:
 ```
-packer validate nginx.pkr.hcl
+packer validate .
 ```
 
 Если конфигурация является корректной, появится сообщение:
@@ -64,7 +64,7 @@ The configuration is valid.
 
 Запустите сборку образа с помощью команды (**версия потребуется позднее**):
 ```
-packer build nginx.pkr.hcl -var 'image_tag=1'
+packer build -var 'image_tag=1' .
 ```
 
 После завершения сборки будет выведено сообщение о том, что образ успешно создан.

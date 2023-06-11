@@ -5,23 +5,32 @@
 #
 
 variable "image_tag" {
-  type = string
+  type    = string
   default = "1"
 }
 
 variable "YC_FOLDER_ID" {
-  type = string
+  type    = string
   default = env("YC_FOLDER_ID")
 }
 
 variable "YC_ZONE" {
-  type = string
+  type    = string
   default = env("YC_ZONE")
 }
 
 variable "YC_SUBNET_ID" {
-  type = string
+  type    = string
   default = env("YC_SUBNET_ID")
+}
+
+packer {
+  required_plugins {
+    yandex = {
+      version = ">= 1.1.2"
+      source  = "github.com/hashicorp/yandex"
+    }
+  }
 }
 
 source "yandex" "nginx" {
@@ -41,14 +50,17 @@ build {
   sources = ["source.yandex.nginx"]
 
   provisioner "file" {
-    source      = "ansible" 
+    source      = "ansible"
     destination = "/tmp/ansible"
   }
 
   provisioner "shell" {
     inline = [
+      # Install epel-release
+      "sudo yum install -y epel-release",
+
       # Install Ansible
-      "sudo yum install ansible",
+      "sudo yum install -y ansible",
 
       # Run playbook
       "ansible-playbook /tmp/ansible/playbook.yml",
@@ -56,7 +68,8 @@ build {
       # Test - Check versions for installed components
       "echo '=== Tests Start ==='",
       "ansible --version",
-      "nginx --version",
+      "echo -e",
+      "curl http://localhost:80/",
       "echo '=== Tests End ==='"
     ]
   }
