@@ -32,8 +32,8 @@ yc init
 export YC_TOKEN=$(yc config get token)
 export YC_CLOUD_ID=$(yc config get cloud-id)
 export YC_FOLDER_ID=$(yc config get folder-id)
-export YC_ZONE="<зона_доступности>"
-export YC_SUBNET_ID="<идентификатор_подсети>"
+export YC_ZONE="ru-central1-a"
+export YC_SUBNET_ID="$(yc vpc subnet show default-ru-central1-a | head -1 | awk '{ print $2 })'"
 
 ```
 
