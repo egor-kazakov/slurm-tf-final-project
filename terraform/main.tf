@@ -24,8 +24,8 @@ resource "yandex_compute_instance_group" "this" {
     }
     network_interface {
       network_id = yandex_vpc_network.this.id
-      #subnet_ids = ["${yandex_vpc_subnet.this["ru-central1-a"].id}"]
       subnet_ids = "${yandex_vpc_subnet.this[*].id}"
+      nat = var.pvc_nat
     }
     metadata = {
       ssh-keys = "centos:${file("~/.ssh/id_rsa.pub")}"
@@ -55,5 +55,9 @@ resource "yandex_compute_instance_group" "this" {
     max_creating    = 2
     max_expansion   = 2
     max_deleting    = 2
+  }
+  
+  application_load_balancer {
+    target_group_name        = "target-group"
   }
 }
