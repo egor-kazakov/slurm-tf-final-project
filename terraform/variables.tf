@@ -72,3 +72,9 @@ variable "resources" {
     disk = 10
   })
 }
+
+variable "pvc_nat" {
+  type = bool
+  description = "White IP to PVC"
+  default = true
+}
