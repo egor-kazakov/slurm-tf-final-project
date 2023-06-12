@@ -1,5 +1,9 @@
 data "yandex_compute_image" "this" {
-  name = "${var.image_name}-${var.image_tag}"
+  # Стандарное обедиение строк
+  #name = "${var.image_name}-${var.image_tag}"
+
+  # Или такая конкатенация
+  name = join("-", [var.image_name, var.image_tag])
 }
 
 resource "yandex_compute_instance_group" "this" {
