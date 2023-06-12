@@ -87,3 +87,4 @@ terraform init
 ```
 terraform apply
 ```
+> Используйте **-var** или **-var-file** чтобы изменить параметры
