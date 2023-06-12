@@ -18,6 +18,10 @@ resource "yandex_alb_backend_group" "this" {
       }
     }
   }
+  depends_on = [
+    yandex_vpc_network.this,
+    yandex_vpc_subnet.this
+  ]
 }
 
 resource "yandex_alb_http_router" "this" {
@@ -41,6 +45,11 @@ resource "yandex_alb_load_balancer" "this" {
   name        = "load-balancer"
 
   network_id  = yandex_vpc_network.this.id
+
+  depends_on = [
+    yandex_vpc_network.this,
+    yandex_vpc_subnet.this
+  ]
 
   allocation_policy {
     dynamic "location" {
