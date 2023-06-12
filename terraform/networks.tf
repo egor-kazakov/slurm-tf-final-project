@@ -3,10 +3,10 @@ resource "yandex_vpc_network" "this" {
 }
 
 resource "yandex_vpc_subnet" "this" {
-  for_each = toset(var.zone)
+  count = length(var.zone)
 
-  name           = "${var.name_prefix}-${each.value}"
-  zone           = each.value
+  name           = "${var.name_prefix}-${var.zone[count.index]}"
+  zone           = var.zone[count.index]
   network_id     = yandex_vpc_network.this.id
-  v4_cidr_blocks = var.cidr_blocks[index(var.zone, each.value)]
+  v4_cidr_blocks = var.cidr_blocks[count.index]
 }

@@ -20,7 +20,8 @@ resource "yandex_compute_instance_group" "this" {
     }
     network_interface {
       network_id = yandex_vpc_network.this.id
-      subnet_ids = ["${yandex_vpc_subnet.this["ru-central1-a"].id}"]
+      #subnet_ids = ["${yandex_vpc_subnet.this["ru-central1-a"].id}"]
+      subnet_ids = "${yandex_vpc_subnet.this[*].id}"
     }
     metadata = {
       ssh-keys = "centos:${file("~/.ssh/id_rsa.pub")}"
@@ -42,7 +43,7 @@ resource "yandex_compute_instance_group" "this" {
   }
 
   allocation_policy {
-    zones = ["ru-central1-a"]
+    zones = var.zone
   }
 
   deploy_policy {
