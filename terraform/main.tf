@@ -42,7 +42,7 @@ resource "yandex_compute_instance_group" "this" {
 
   scale_policy {
     fixed_scale {
-      size = 2
+      size = var.pvc_count
     }
   }
 

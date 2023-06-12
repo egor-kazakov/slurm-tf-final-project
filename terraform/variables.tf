@@ -53,6 +53,12 @@ variable "image_tag" {
   default = "1"
 }
 
+variable "pvc_count" {
+  type = number
+  description = "Count VMs"
+  default = 3
+}
+
 variable "resources" {
   type = object({
     cpu = number
