@@ -34,6 +34,9 @@ export YC_CLOUD_ID=$(yc config get cloud-id)
 export YC_FOLDER_ID=$(yc config get folder-id)
 export YC_ZONE="ru-central1-a"
 export YC_SUBNET_ID="$(yc vpc subnet show default-ru-central1-a | head -1 | awk '{ print $2 })'"
+
+# Фикс folder_id
+export TF_VAR_YC_FOLDER_ID=$YC_FOLDER_ID
 ```
 
 > При необходимости параметры **YC_ZONE** и **YC_SUBNET_ID** можно посмотреть командой: `yc vpc subnet list`.
